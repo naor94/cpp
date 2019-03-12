@@ -32,15 +32,15 @@ fi
 echo " compilation memory leak thread race" 
 echo " $Comp $Memcheck $Trcheck " 
 output=$co$mem$tr 
-if [$output == '000']; then
+if [ $output == '000' ]; then
 exit 0
 fi 
-if [$output == '001']; then
+if [ $output == '001' ]; then
 exit 1 
 fi 
-if [$output == '010']; then 
+if [ $output == '010' ]; then 
 exit 2
 fi 
-if [$output == '011']; then 
+if [ $output == '011' ]; then 
 exit 3 
 fi
