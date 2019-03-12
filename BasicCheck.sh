@@ -25,7 +25,9 @@ mem=1
 fi
 
 
-valgrind--tool=helgrind --error-exitcode=1 ./$executeble &> /dev/null
+
+valgrind --tool=helgrind --error-exitcode=1 -q ./$executeble &> /dev/null
+
 secssesfulhel=$?
 
 if [ $? -eq 0 ]; then
