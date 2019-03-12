@@ -47,7 +47,6 @@ fi
 
 echo " compilation   memory leak  thread race"
 echo "  $Comp          $Memcheck    $Trcheck "
-exit 1
 
 output=$co$mem$tr
 
