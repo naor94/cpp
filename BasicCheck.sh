@@ -13,8 +13,7 @@ if [ $secssesfullMake -eq 0 ]; then
 Comp="passed"
 co=0
 
-    valgrind --tool=memcheck ${@:3} --leak-check=full --error-exitcode=1 -q ./$execute &> /dev/null
-
+valgrind --leak-check=full --error-exitcode=1 ./$executeble &> /dev/null
 if [ $? -eq 0 ]; then
 Memcheck="passed"
 mem=0
