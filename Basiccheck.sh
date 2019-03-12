@@ -2,61 +2,67 @@
 folderName=$1
 executeble=$2
 
-
-
-
 cd $folderName
-
-if [ -f Makefile ] ; then
-
 
 make
 
 secssesfullMake=$?
 
-if [$secssesfullMake -eq 0];then
+if [ $secssesfullMake -eq 0 ]; then 
 
 Comp="passed"
-co=4
-valgrind --leak-check=full --error-exitcode=1 ./$executeble &> output.txt 
-secssesfulval=$?
-valgrind--tool=helgrind --error-exitcode=1 ./$executeble &> output.txt
-secssesfulhel=$?
+co=0
+valgrind --leak-check=full --error-exitcode=1 ./$executeble &> /dev/null
 
-if [$secssesfulval -eq 0]; then
+
+if [ $? -eq 0 ]; then
 Memcheck="passed"
-mem=2
+mem=0
 
 else
 Memcheck="failed"
-mem=0
+mem=1
 fi
 
-if [$secssesfulhel -eq 0]; then
+
+valgrind--tool=helgrind --error-exitcode=1 ./$executeble &> /dev/null
+secssesfulhel=$?
+
+if [ $? -eq 0 ]; then
 Trcheck="passed"
-tr=1
+tr=0
 else
 Trcheck="failed"
-tr=0
+tr=1
 fi
 
 else
 Comp="failed"
-co=0
+co=1
+exit 7
 
 fi
-
-
-
 
 echo " compilation   memory leak  thread race"
 echo "  $Comp          $Memcheck    $Trcheck "
+exit 1
 
+output=$co$mem$tr
 
-output=$co+$mem+$tr
-exit $output
-
-else
-echo "No makefile"
+if [$output == '000']; then 
+exit 0
 fi
+
+if [$output == '001']; then 
+exit 1
+fi
+if [$output == '010']; then 
+exit 2
+fi
+if [$output == '011']; then 
+exit 3
+fi
+
+
+
 
