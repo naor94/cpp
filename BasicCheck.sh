@@ -16,7 +16,6 @@ Memcheck="failed"
 mem=1
 fi
 valgrind --tool=helgrind --error-exitcode=1  ./$executeble &> /dev/null
-secssesfulhel=$?
 if [ $? -eq 0 ]; then
 Trcheck="passed"
 tr=0
